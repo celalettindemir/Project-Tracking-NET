@@ -6,7 +6,7 @@ namespace Core.Utilities.Interceptors.Autofac
     {
         protected virtual void OnBefore(IInvocation invocation) { }
         protected virtual void OnAfter(IInvocation invocation) { }
-        protected virtual void OnException(IInvocation invocation) { }
+        protected virtual void OnException(IInvocation invocation,System.Exception e) { }
         protected virtual void OnSuccess(IInvocation invocation) { }
         public override void Intercept(IInvocation invocation)
         {
@@ -19,7 +19,7 @@ namespace Core.Utilities.Interceptors.Autofac
             catch (Exception ex)
             {
                 isSuccess = false;
-                OnException(invocation);
+                OnException(invocation,ex);
                 throw ex;
             }
             finally {

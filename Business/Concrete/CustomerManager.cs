@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.BussinessAspects.Autofac;
+using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Logging;
@@ -35,7 +36,7 @@ namespace Business.Concrete
         public IResult Add(Customer customer)
         {
             _customerDal.Add(customer);
-            return new SuccessResult();
+            return new SuccessResult(Messages.CustomerAdded);
         }
         [CacheAspect(1)]
         [LogAspect(typeof(DatabaserLogger))]

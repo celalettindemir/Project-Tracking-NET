@@ -59,6 +59,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.ConfigureCustomExceptionMiddleware();
 app.UseCors(builder => builder.WithOrigins("http://localhost:3000").AllowAnyHeader());
 
 
