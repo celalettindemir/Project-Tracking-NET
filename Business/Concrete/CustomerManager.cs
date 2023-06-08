@@ -2,7 +2,9 @@
 using Business.BussinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -28,13 +30,15 @@ namespace Business.Concrete
         }
         [ValidationAspect(typeof(CustomerValidator))]
         [CacheRemoveAspect("CustomerManager")]
-        [SecuredOperation("Customer.Add")]
+        [LogAspect(typeof(DatabaserLogger))]
+        //[SecuredOperation("Customer.Add")]
         public IResult Add(Customer customer)
         {
             _customerDal.Add(customer);
             return new SuccessResult();
         }
         [CacheAspect(1)]
+        [LogAspect(typeof(DatabaserLogger))]
         public IDataResult<List<Customer>> GetList()
         {
             return new SuccessDataResult<List<Customer>>(_customerDal.GetList().ToList());
