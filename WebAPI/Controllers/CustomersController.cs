@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,7 @@ namespace WebAPI.Controllers
         {
             _customerService = customerService;
         }
-        [Authorize(Roles = "Customer.GetList")]
+        //[Authorize(Roles = "Customer.GetList")]
         [HttpGet("getall")]
         public IActionResult GetList()
         {
@@ -20,6 +21,17 @@ namespace WebAPI.Controllers
             if (result.Success)
             {
                 return Ok(result.Data);
+            }
+
+            return BadRequest(result.Message);
+        }
+        [HttpPost("add")]
+        public IActionResult Add(Customer customer)
+        {
+            var result = _customerService.Add(customer);
+            if (result.Success)
+            {
+                return Ok(result.Message);
             }
 
             return BadRequest(result.Message);
