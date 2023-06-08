@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BussinessAspects.Autofac;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
@@ -10,6 +11,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +28,7 @@ namespace Business.Concrete
         }
         [ValidationAspect(typeof(CustomerValidator))]
         [CacheRemoveAspect("CustomerManager")]
+        [SecuredOperation("Customer.Add")]
         public IResult Add(Customer customer)
         {
             _customerDal.Add(customer);

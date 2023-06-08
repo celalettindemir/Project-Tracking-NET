@@ -13,7 +13,6 @@ namespace WebAPI.Controllers
         {
             _customerService = customerService;
         }
-        //[Authorize(Roles = "Customer.GetList")]
         [HttpGet("getall")]
         public IActionResult GetList()
         {
